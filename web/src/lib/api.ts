@@ -6,7 +6,16 @@ import {
   WarrantDetailResponse,
 } from "@/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_CLERK_API_URL || "http://127.0.0.1:8000";
+function getBaseUrl(): string {
+  const envUrl = process.env.NEXT_PUBLIC_CLERK_API_URL;
+  if (!envUrl) return "http://127.0.0.1:8000";
+  if (envUrl.startsWith("http://") || envUrl.startsWith("https://")) {
+    return envUrl.replace(/\/$/, "");
+  }
+  return `https://${envUrl.replace(/\/$/, "")}`;
+}
+
+const BASE_URL = getBaseUrl();
 
 export async function fetchWarrants(
   source?: string,
