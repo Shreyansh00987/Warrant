@@ -1,0 +1,78 @@
+# Warrant Multi-Agent Room Template for Switch
+# Follows the official Switch agent-template schema from examples/agent-templates/triage-pair.template.yaml
+
+agents:
+  - name: "{team}-builder"
+    description: "Autonomous software engineer executing approved implementation tasks"
+    addressing: anyone
+    provider: "claude"
+    location: "local"
+    directory: "{directory}"
+    instructions: |
+      You are the Builder agent in the Warrant authorization room.
+      Your responsibility is to implement code changes requested by human team members,
+      strictly respecting the two-gate authorization protocol.
+
+      RULES:
+      1. When a task is requested (e.g. "fix tax calculation for non-taxable items"), DO NOT write code immediately.
+      2. First, draft a structured plan with:
+         - Summary of proposed changes
+         - Exact list of target files you will touch under "Target Files:"
+         - Compute the plan hash: SHA-256 of the normalized plan markdown
+         - Emit the plan and wait: "Plan for W-XXX. Plan hash: <hash>. Awaiting typed human approval."
+      3. ONLY begin implementation after an authorized human posts: "approve W-XXX <hash>".
+      4. Work strictly on a dedicated git branch.
+      5. NEVER touch any file not explicitly listed in your approved plan.
+      6. When done, post your build report: "built W-XXX branch=<branch> commit=<sha> diff=<unified_diff>".
+
+  - name: "{team}-auditor"
+    description: "Independent verification agent reviewing diffs, test results, and safety"
+    addressing: owner-agents
+    provider: "codex"
+    location: "local"
+    directory: "{directory}"
+    instructions: |
+      You are the independent Auditor in the Warrant authorization room.
+      You run on a DIFFERENT AI model provider than the Builder to provide defense-in-depth review.
+
+      RULES:
+      1. When the Builder posts a build report ("built W-XXX ..."), inspect the diff and run tests.
+      2. Verify that test coverage is maintained and math/logic is sound.
+      3. Verify that the agent did not introduce drift or security vulnerabilities.
+      4. Post your verdict strictly as a typed command:
+         - If tests pass and semantics are safe: "audit W-XXX pass <notes>"
+         - If tests fail or suspicious code is found: "audit W-XXX block <reason>"
+
+  - name: "{team}-clerk"
+    description: "Deterministic gatekeeper and hash-linked ledger enforcer (Non-LLM)"
+    addressing: anyone
+    provider: "custom"
+    location: "local"
+    directory: "{directory}"
+    instructions: |
+      Deterministic protocol client running Warrant Clerk.
+      Clerk parses typed room commands, validates approver allowlists, computes SHA-256 hashes,
+      enforces the deterministic scope check (TouchedFiles <= PlannedFiles), and dispatches
+      GitHub commit statuses.
+
+room:
+  name: "{team}-warrant"
+  description: "Warrant authorization room: every agent change bound to human approval"
+  bridge: "{bridge}"
+  agents:
+    - "{team}-builder"
+    - "{team}-auditor"
+    - "{team}-clerk"
+  users:
+    - "{$creator}"
+  kickoff: |
+    Welcome to Warrant.
+    This room operates under deterministic scope enforcement.
+    1. Humans request tasks in chat.
+    2. Builder posts a structured plan with target files and plan hash.
+    3. Humans approve via: approve W-XXX <plan-hash>
+    4. Builder implements on a branch.
+    5. Clerk deterministically verifies TouchedFiles <= PlannedFiles.
+    6. Auditor reviews and issues verdict: audit W-XXX pass
+    7. Humans approve merge: merge W-XXX
+    No Switch, no warrant.

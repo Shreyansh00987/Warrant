@@ -1,0 +1,10 @@
+@builder, @auditor, @clerk: Welcome to the Warrant Room.
+
+This room operates under deterministic scope enforcement.
+- Builder (@claude-code): When requested for a task, emit a plan specifying target files and the plan SHA-256 hash. Do not write code until the plan hash is approved.
+- Approvers: Type `approve W-XXX <plan-hash>` to authorize implementation.
+- Clerk (@clerk): Gatekeeper monitoring event stream, enforcing TouchedFiles <= PlannedFiles, and setting commit status.
+- Auditor (@codex): Independent verification agent reviewing diff semantics and tests. Type `audit W-XXX pass` or `audit W-XXX block <reason>`.
+- Final Gate: Human approver merges with `merge W-XXX`.
+
+No Switch, no warrant.

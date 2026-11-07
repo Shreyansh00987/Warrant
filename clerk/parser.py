@@ -23,8 +23,8 @@ class ParsedCommand:
     raw_text: str = ""
 
 
-# Regex patterns for typed commands in chat
-SPEAKER_PREFIX_PATTERN = re.compile(r"^[a-zA-Z0-9_\-]+:\s*")
+# Regex patterns for typed commands in chat (do not span newlines across lines)
+SPEAKER_PREFIX_PATTERN = re.compile(r"^\[?[a-zA-Z0-9_\- ]{1,30}\]?:\s*")
 
 APPROVE_PATTERN = re.compile(
     r"^\s*approve\s+(W-[0-9a-zA-Z_\-]+)\s+([0-9a-fA-F]{4,64})(?:\s+([^\s]+))?\s*$",

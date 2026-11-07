@@ -5,6 +5,7 @@ Deterministic SHA-256 hashing for plan content, git diffs, and the hash chain.
 
 from __future__ import annotations
 import hashlib
+import re
 from typing import Optional
 
 GENESIS_HASH = "0000000000000000000000000000000000000000000000000000000000000000"
@@ -14,13 +15,22 @@ def normalize_text(text: Optional[str]) -> str:
     """
     Normalizes text for consistent hashing across platforms:
     - Replaces CRLF (\r\n) with LF (\n).
+    - Excludes self-referential 'Plan hash: <hash>' announcement lines so the hash is deterministic.
     - Strips leading and trailing whitespace.
     - Strips trailing whitespace on each line.
     """
     if not text:
         return ""
     lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
-    cleaned_lines = [line.rstrip() for line in lines]
+    cleaned_lines = []
+    for line in lines:
+        r = line.rstrip()
+        # Ignore self-referential hash announcement footer
+        if re.match(r"^\s*(?:plan\s+hash|hash)\s*:\s*[0-9a-fA-F]{4,64}", r, re.IGNORECASE):
+            continue
+        if re.match(r"^\s*awaiting\s+typed\s+human\s+approval", r, re.IGNORECASE):
+            continue
+        cleaned_lines.append(r)
     return "\n".join(cleaned_lines).strip()
 
 
