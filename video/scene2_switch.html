@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: #12110E;
+    color: #F6F1E7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 80px;
+    overflow: hidden;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #332F27;
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+  .title-group h1 {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #F6F1E7;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .tag {
+    background: #8B1E2D;
+    color: #fff;
+    font-size: 13px;
+    font-family: monospace;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    font-size: 18px;
+    color: #A39B88;
+    margin-top: 6px;
+  }
+  .room-id {
+    font-family: monospace;
+    font-size: 16px;
+    color: #E6A23C;
+    background: #241E15;
+    padding: 8px 18px;
+    border: 1px solid #473B25;
+    border-radius: 6px;
+  }
+  .content {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    flex: 1;
+  }
+  .chat-box {
+    background: #1A1814;
+    border: 1px solid #332F27;
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .chat-msg {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    border-left: 4px solid transparent;
+  }
+  .msg-priya {
+    background: #23201B;
+    border-left-color: #4A90E2;
+  }
+  .msg-claude {
+    background: #23201B;
+    border-left-color: #D97706;
+  }
+  .msg-clerk {
+    background: #21261E;
+    border-left-color: #2F6B3B;
+  }
+  .msg-codex {
+    background: #23201B;
+    border-left-color: #8B5CF6;
+  }
+  .author {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .author-priya { color: #60A5FA; }
+  .author-claude { color: #FBBF24; }
+  .author-clerk { color: #4ADE80; }
+  .author-codex { color: #C084FC; }
+  .msg-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #DDD6C8;
+    font-family: -apple-system, sans-serif;
+  }
+  .code-pill {
+    font-family: monospace;
+    background: #111;
+    color: #FBBF24;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .hash-pill {
+    font-family: monospace;
+    background: #0D2818;
+    color: #4ADE80;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .arch-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .diagram-card {
+    background: #1A1814;
+    border: 1px solid #332F27;
+    border-radius: 12px;
+    padding: 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .diagram-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+    background: #23201B;
+    border-radius: 8px;
+    border: 1px solid #332F27;
+  }
+  .step-num {
+    font-family: monospace;
+    font-size: 20px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #332F27;
+    color: #F6F1E7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #F6F1E7;
+  }
+  .step-info p {
+    font-size: 13px;
+    color: #A39B88;
+    margin-top: 4px;
+  }
+  .footer-bar {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid #29241E;
+    font-size: 14px;
+    color: #7D7565;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title-group">
+      <h1>Switch Multi-Agent Room <span class="tag">Evidence Origin</span></h1>
+      <div class="subtitle">Without the shared Switch room, there is no shared evidence and no warrant.</div>
+    </div>
+    <div class="room-id">ROOM: warrant-room-014</div>
+  </div>
+
+  <div class="content">
+    <div class="chat-box">
+      <div class="chat-msg msg-priya">
+        <div class="author author-priya">Priya (Human Lead) <span>09:00 AM</span></div>
+        <div class="msg-text">@claude-code fix invoice tax calculation for non-taxable items. See issue #104. (W-014)</div>
+      </div>
+
+      <div class="chat-msg msg-claude">
+        <div class="author author-claude">Claude Code (Builder Agent) <span>09:02 AM</span></div>
+        <div class="msg-text">Plan for W-014: Touches <span class="code-pill">src/invoice/calculator.py</span>, <span class="code-pill">tests/test_calculator.py</span>.<br>Plan hash: <span class="hash-pill">eb4d3b21131d08cb29f01da5fd0a63d6...</span><br>Awaiting approval: <code>approve W-014 eb4d3b</code></div>
+      </div>
+
+      <div class="chat-msg msg-priya">
+        <div class="author author-priya">Priya (Human Lead) <span>09:05 AM</span></div>
+        <div class="msg-text"><strong>approve W-014 eb4d3b</strong></div>
+      </div>
+
+      <div class="chat-msg msg-clerk">
+        <div class="author author-clerk">Warrant Clerk (Deterministic Enforcer) <span>09:05 AM</span></div>
+        <div class="msg-text">✓ Plan hash matched. Approver Priya verified against allowlist. Status: <strong>APPROVED_PLAN</strong>. Proceed with branch.</div>
+      </div>
+
+      <div class="chat-msg msg-codex">
+        <div class="author author-codex">Codex (Independent Auditor) <span>09:12 AM</span></div>
+        <div class="msg-text">audit W-014 pass. Unit tests pass (18/18). Math verified. Zero regressions.</div>
+      </div>
+    </div>
+
+    <div class="arch-box">
+      <div class="diagram-card">
+        <div class="diagram-step">
+          <div class="step-num">1</div>
+          <div class="step-info">
+            <h3>Human Intent</h3>
+            <p>Task initiated in Switch Room with explicit ticket ID.</p>
+          </div>
+        </div>
+        <div class="diagram-step">
+          <div class="step-num">2</div>
+          <div class="step-info">
+            <h3>Plan Hashing</h3>
+            <p>Builder announces target files + SHA-256 plan hash.</p>
+          </div>
+        </div>
+        <div class="diagram-step">
+          <div class="step-num">3</div>
+          <div class="step-info">
+            <h3>Two-Gate Enforcement</h3>
+            <p>Gate 1: Plan hash approval. Gate 2: Deterministic scope check.</p>
+          </div>
+        </div>
+        <div class="diagram-step">
+          <div class="step-num">4</div>
+          <div class="step-info">
+            <h3>Independent Audit</h3>
+            <p>Different LLM provider reviews diff before GitHub status is set.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div>Warrant: Every Agent-Made Change, Traced to the Human Who Said Yes</div>
+    <div>Flip the Switch Hackathon 2026 — Track: Best Business Workflow</div>
+  </div>
+</body>
+</html>
