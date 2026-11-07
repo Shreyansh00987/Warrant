@@ -6,6 +6,12 @@ A deterministic scope gatekeeper and hash-linked authorization ledger for autono
 
 Built for the **Flip the Switch Hackathon 2026** (WeMakeDevs × DevTools Academy × Switch).
 
+**Live Cloud Deployment**:
+- 🌐 **Web UI Ledger**: [https://warrant-web-ncno.onrender.com](https://warrant-web-ncno.onrender.com)
+- ⚙️ **Clerk API**: [https://warrant-clerk.onrender.com](https://warrant-clerk.onrender.com)
+- 📖 **API Docs (Swagger)**: [https://warrant-clerk.onrender.com/docs](https://warrant-clerk.onrender.com/docs)
+- 📦 **GitHub Repository**: [https://github.com/Shreyansh00987/Warrant](https://github.com/Shreyansh00987/Warrant)
+
 ---
 
 ## 30-Second Pitch: Why Switch is Central
