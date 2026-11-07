@@ -10,6 +10,8 @@ Built for the **Flip the Switch Hackathon 2026** (WeMakeDevs × DevTools Academy
 - 🌐 **Web UI Ledger**: [https://warrant-web-ncno.onrender.com](https://warrant-web-ncno.onrender.com)
 - ⚙️ **Clerk API**: [https://warrant-clerk.onrender.com](https://warrant-clerk.onrender.com)
 - 📖 **API Docs (Swagger)**: [https://warrant-clerk.onrender.com/docs](https://warrant-clerk.onrender.com/docs)
+- 📰 **DEV.to Article**: [Building Warrant on DEV.to](https://dev.to/shreyansh_agrahari_2009db/building-warrant-every-agent-made-change-traced-to-the-human-who-said-yes-dco)
+- 🎬 **1-Minute Demo Video**: [Watch Demo Video](https://github.com/Shreyansh00987/Warrant/raw/main/video/warrant_demo_video.mp4)
 - 📦 **GitHub Repository**: [https://github.com/Shreyansh00987/Warrant](https://github.com/Shreyansh00987/Warrant)
 
 ---
