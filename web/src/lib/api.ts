@@ -9,6 +9,14 @@ import {
 function getBaseUrl(): string {
   const envUrl = process.env.NEXT_PUBLIC_CLERK_API_URL;
   if (!envUrl) return "http://127.0.0.1:8000";
+  // On Render Free tier, internal service names must resolve to the public .onrender.com domain
+  if (
+    envUrl === "warrant-clerk" ||
+    envUrl === "http://warrant-clerk" ||
+    envUrl === "https://warrant-clerk"
+  ) {
+    return "https://warrant-clerk.onrender.com";
+  }
   if (envUrl.startsWith("http://") || envUrl.startsWith("https://")) {
     return envUrl.replace(/\/$/, "");
   }

@@ -29,7 +29,4 @@ services:
     startCommand: npm start
     envVars:
       - key: NEXT_PUBLIC_CLERK_API_URL
-        fromService:
-          type: web
-          name: warrant-clerk
-          property: host
+        value: https://warrant-clerk.onrender.com
